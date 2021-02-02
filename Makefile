@@ -17,7 +17,7 @@ help:
 	@echo "To build a specific project:"
 	@echo "    make proj.board"
 	@echo "e.g.,"
-	@echo "    make exp-puf-001.zybo-v1"
+	@echo "    make exp-puf-001.zybo"
 
 
 PROJECTS := $(filter-out $(NO_PROJ), $(notdir $(wildcard projects/*)))
