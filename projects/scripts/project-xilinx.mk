@@ -17,6 +17,7 @@ CLEAN_TARGET += *.log
 CLEAN_TARGET += *.jou
 CLEAN_TARGET +=  xgui
 CLEAN_TARGET += *.runs
+CLEAN_TARGET += *.gen
 CLEAN_TARGET += *.srcs
 CLEAN_TARGET += *.sdk
 CLEAN_TARGET += *.hw
