@@ -2,11 +2,13 @@
 # create board design
 # interface ports
 
+# source ../../scripts/adi_env.tcl ; source ../../scripts/adi_board.tcl ; source ../../scripts/adi_pd.tcl
+
 # instance: sys_ps7
 
 ad_ip_instance processing_system7 sys_ps7
 apply_bd_automation -rule xilinx.com:bd_rule:processing_system7 \
-  -config {apply_board_preset 1}  [get_bd_cells sys_ps7]
+   -config {make_external "FIXED_IO, DDR" apply_board_preset "1" Master "Disable" Slave "Disable" }  [get_bd_cells sys_ps7]
 
 ad_ip_instance proc_sys_reset sys_rstgen
 ad_ip_parameter sys_rstgen CONFIG.C_EXT_RST_WIDTH 1
