@@ -36,4 +36,4 @@ ad_connect  sys_cpu_clk                 rom_sys_0/clk
 
 # interconnects and address mapping
 
-ad_cpu_interconnect 0x45000000 axi_sysid_0
+ad_cpu_interconnect 0x43c00000 axi_sysid_0
