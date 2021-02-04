@@ -1,5 +1,6 @@
 source $ad_hdl_dir/projects/common/zybo/zybo_system_bd.tcl
 source $ad_hdl_dir/projects/common/zybo/zybo_system_ps7.tcl
+source ../common/exp-puf-001.tcl
 source $ad_hdl_dir/projects/scripts/adi_pd.tcl
 
 #system ID
