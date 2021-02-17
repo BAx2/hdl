@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SOURCE="regmap_tb.v"
+SOURCE+=" ../axi_puf.v"
+SOURCE+=" ../../common/up_axi.v"
+
+VHDL_SOURCE+=" ../lfsr/LFSR_CFG.vhd"
+
+cd `dirname $0`
+source run_tb.sh
