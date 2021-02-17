@@ -1,4 +1,9 @@
+dcv
+*.wdb
+xsim.dir/
+work.*/
 ipcache
+*.pb
 *.ip_user_files
 *.dcp
 *.cache

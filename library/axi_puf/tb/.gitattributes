@@ -1,0 +1,4 @@
+# Cygwin requirement
+
+regmap_tb text eol=lf 
+run_tb.sh text eol=lf 
