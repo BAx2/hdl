@@ -55,6 +55,10 @@ proc adi_project {project_name {mode 0} {parameter_list {}} } {
     set device "xc7z010clg400-1"
     set board [lindex [lsearch -all -inline [get_board_parts] *zybo:part0*] end]
   }
+  if [regexp "_nexys4$" $project_name] {
+    set device "xc7a100tcsg324-1"
+    set board [lindex [lsearch -all -inline [get_board_parts] *nexys4:part0:1.1*] end]
+  }
   if [regexp "_ac701$" $project_name] {
     set device "xc7a200tfbg676-2"
     set board [lindex [lsearch -all -inline [get_board_parts] *ac701*] end]
@@ -178,6 +182,8 @@ proc adi_project_create {project_name mode parameter_list device {board "not-app
   }
 
   set lib_dirs $ad_hdl_dir/library
+  lappend lib_dirs $ad_hdl_dir/unclean_repo
+  lappend lib_dirs $ad_hdl_dir/proprietary_backport
   if {$ad_hdl_dir ne $ad_ghdl_dir} {
     lappend lib_dirs $ad_ghdl_dir/library
   }

@@ -15,6 +15,8 @@ clean:
 	$(MAKE) -C axi_sysid clean
 	$(MAKE) -C axi_puf clean
 	$(MAKE) -C sysid_rom clean
+	$(MAKE) -C axi_psram clean
+	$(MAKE) -C axi_sevenseg clean
 
 
 
@@ -25,6 +27,8 @@ lib:
 	$(MAKE) -C axi_sysid
 	$(MAKE) -C axi_puf
 	$(MAKE) -C sysid_rom
+	$(MAKE) -C axi_psram
+	$(MAKE) -C axi_sevenseg
 
 ####################################################################################
 ####################################################################################

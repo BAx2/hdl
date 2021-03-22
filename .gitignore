@@ -1,3 +1,6 @@
+*.bit
+*.mmi
+system_top.xsa
 dcv
 *.wdb
 xsim.dir/

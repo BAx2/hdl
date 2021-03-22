@@ -23,3 +23,12 @@ export PATH=$PATH:/cygdrive/d/xilinx/SDk/2020.2/gnu/aarch32/nt/gcc-arm-none-eabi
 # Generate project files 
 
 $ make all
+
+
+
+
+# References 
+1. https://github.com/Digilent/Nexys-4-OOB
+2. https://github.com/Digilent/digilent-xdc
+3. https://github.com/andrewsil1/NexysPsram/
+4. https://github.com/andrewsil1/SevenSegController
