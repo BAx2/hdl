@@ -1,4 +1,4 @@
-
+	
 `timescale 1 ps / 1 ps
 
 module system_top
@@ -21,9 +21,31 @@ module system_top
     PhyTxEn,
     PhyTxd,
     PhyClk50Mhz,
+    PhyRstn,
     
     uart_rxd,
     uart_txd,
+    
+    led,
+    sw,
+    btnC,
+    btnU,
+    btnL,
+    btnR,
+    btnD,
+    
+    RGB1_Red,
+    RGB1_Green,
+    RGB1_Blue,
+    
+    RGB2_Red,
+    RGB2_Green,
+    RGB2_Blue,
+    
+    tmpSCL,
+    tmpSDA,
+    tmpInt,
+    tmpCT,
     
     an,
     seg,
@@ -52,11 +74,33 @@ module system_top
   output PhyTxEn;
   output [1:0]PhyTxd;
   output PhyClk50Mhz;
+  output PhyRstn;
   
   output [7:0] an;
   output [6:0] seg;
   output dp;
   
+  output [15:0] led;
+  input [15:0] sw;
+  
+  input btnC;
+  input btnU;
+  input btnL;
+  input btnR;
+  input btnD;
+  
+  output RGB1_Red;
+  output RGB1_Green;
+  output RGB1_Blue;
+    
+  output RGB2_Red;
+  output RGB2_Green;
+  output RGB2_Blue;
+  
+  inout tmpSCL;
+  inout tmpSDA;
+  input tmpInt;
+  input tmpCT;
   
   wire sys_clk;
   wire sys_rst;
@@ -100,6 +144,10 @@ module system_top
        .anode(an),
        .cathode(seg),
        .dp(dp),
+       .gpio_leds_tri_o(),
+       .gpio_sw_btns_tri_i(),
+       .iic_main_scl_io(),
+       .iic_main_sda_io(),
        .MDIO_0_mdc(PhyMdc),
        .MDIO_0_mdio_io(PhyMdio),
        .RMII_PHY_M_0_crs_dv(PhyCrs),
@@ -107,6 +155,7 @@ module system_top
        .RMII_PHY_M_0_rxd(PhyRxd),
        .RMII_PHY_M_0_tx_en(PhyTxEn),
        .RMII_PHY_M_0_txd(PhyTxd),
+       .PHY_RSTN(PhyRstn),
        .ref_clk_50Mhz(ref_clk_50Mhz)
    );
   

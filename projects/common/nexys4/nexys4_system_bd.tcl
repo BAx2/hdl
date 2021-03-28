@@ -27,10 +27,15 @@ create_bd_port -dir O -type clk ref_clk_50Mhz
 create_bd_port -dir O -from 7 -to 0 anode
 create_bd_port -dir O -from 6 -to 0 cathode
 create_bd_port -dir O dp
+create_bd_port -dir O PHY_RSTN
 
 create_bd_intf_port -mode Master -vlnv xilinx.com:interface:uart_rtl:1.0 uart
 create_bd_intf_port -mode Master -vlnv xilinx.com:interface:mdio_rtl:1.0 MDIO_0
 create_bd_intf_port -mode Master -vlnv xilinx.com:interface:rmii_rtl:1.0 RMII_PHY_M_0
+create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 iic_main
+
+create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 gpio_leds
+create_bd_intf_port -mode Master -vlnv xilinx.com:interface:gpio_rtl:1.0 gpio_sw_btns
 
 # Clock wizard
 
@@ -38,6 +43,10 @@ ad_ip_instance clk_wiz sys_cpu_clk_wiz
 ad_ip_parameter sys_cpu_clk_wiz CONFIG.RESET_TYPE ACTIVE_LOW
 ad_ip_parameter sys_cpu_clk_wiz CONFIG.CLKOUT2_USED true
 ad_ip_parameter sys_cpu_clk_wiz CONFIG.CLKOUT2_REQUESTED_OUT_FREQ 50.000
+ad_ip_parameter sys_cpu_clk_wiz CONFIG.CLKOUT3_USED true
+ad_ip_parameter sys_cpu_clk_wiz CONFIG.CLKOUT3_REQUESTED_OUT_FREQ 50.000
+ad_ip_parameter sys_cpu_clk_wiz CONFIG.CLKOUT3_REQUESTED_PHASE 45.000
+
 
 
 # instance: microblaze - processor
@@ -74,6 +83,7 @@ ad_ip_parameter sys_rstgen CONFIG.C_EXT_RST_WIDTH 1
 
 # instance: default peripherals
 
+ad_ip_instance axi_iic axi_iic_main
 ad_ip_instance axi_ethernetlite axi_ethernet
 ad_ip_instance mii_to_rmii eth_mii_to_rmii
 ad_ip_instance axi_uartlite axi_uart
@@ -82,6 +92,15 @@ ad_ip_parameter axi_uart CONFIG.C_BAUDRATE 115200
 ad_ip_instance axi_timer axi_timer
 
 ad_ip_instance axi_sevenseg axi_sevenseg_0
+
+ad_ip_instance axi_gpio axi_gpio
+ad_ip_parameter axi_gpio CONFIG.C_INTERRUPT_PRESENT 1
+ad_ip_parameter axi_gpio CONFIG.C_IS_DUAL 1
+ad_ip_parameter axi_gpio CONFIG.C_GPIO_WIDTH 16
+ad_ip_parameter axi_gpio CONFIG.C_GPIO2_WIDTH 21
+ad_ip_parameter axi_gpio CONFIG.C_ALL_OUTPUTS 1
+ad_ip_parameter axi_gpio CONFIG.C_ALL_INPUTS_2 1
+
 # instance: interrupt
 
 ad_ip_instance axi_intc axi_intc
@@ -136,7 +155,7 @@ ad_connect sys_clk sys_cpu_clk_wiz/clk_in1
 ad_connect sys_cpu_reset  sys_rstgen/peripheral_reset
 ad_connect sys_cpu_clk    sys_cpu_clk_wiz/clk_out1
 ad_connect sys_cpu_resetn sys_rstgen/peripheral_aresetn
-ad_connect ref_clk_50Mhz  sys_cpu_clk_wiz/clk_out2
+ad_connect ref_clk_50Mhz  sys_cpu_clk_wiz/clk_out3
 
 # generic system clocks pointers
 
@@ -161,9 +180,9 @@ ad_connect sys_concat_intc/In5    GND
 ad_connect sys_concat_intc/In6    GND
 ad_connect sys_concat_intc/In7    GND
 ad_connect sys_concat_intc/In8    GND
-ad_connect sys_concat_intc/In9    GND
+ad_connect sys_concat_intc/In9    axi_iic_main/iic2intc_irpt
 ad_connect sys_concat_intc/In10   GND
-ad_connect sys_concat_intc/In11   GND
+ad_connect sys_concat_intc/In11   axi_gpio/ip2intc_irpt
 ad_connect sys_concat_intc/In12   GND
 ad_connect sys_concat_intc/In13   GND
 ad_connect sys_concat_intc/In14   GND
@@ -178,18 +197,25 @@ ad_connect  axi_ethernet/MDIO MDIO_0
 ad_connect  eth_mii_to_rmii/MII axi_ethernet/MII
 ad_connect  eth_mii_to_rmii/RMII_PHY_M RMII_PHY_M_0
 ad_connect  eth_mii_to_rmii/ref_clk sys_cpu_clk_wiz/clk_out2
-ad_connect  eth_mii_to_rmii/rst_n sys_rstgen/peripheral_aresetn
+#ad_connect  eth_mii_to_rmii/rst_n sys_rstgen/peripheral_aresetn
+#ad_connect  eth_mii_to_rmii/rst_n PHY_RSTN
+ad_connect  axi_ethernet/phy_rst_n PHY_RSTN
+ad_connect  axi_ethernet/phy_rst_n eth_mii_to_rmii/rst_n
 ad_connect  anode axi_sevenseg_0/anode 
 ad_connect  cathode axi_sevenseg_0/cathode 
 ad_connect  dp axi_sevenseg_0/dp 
-
+ad_connect  iic_main axi_iic_main/iic
+ad_connect  gpio_leds axi_gpio/gpio
+ad_connect  gpio_sw_btns axi_gpio/gpio2
 # address mapping
 
 ad_cpu_interconnect 0x41400000 sys_mb_debug
 ad_cpu_interconnect 0x40E00000 axi_ethernet
 ad_cpu_interconnect 0x41200000 axi_intc
 ad_cpu_interconnect 0x41C00000 axi_timer
+ad_cpu_interconnect 0x40000000 axi_gpio
 ad_cpu_interconnect 0x40600000 axi_uart
+ad_cpu_interconnect 0x41600000 axi_iic_main
 ad_cpu_interconnect 0x45000000 axi_sysid_0
 ad_cpu_interconnect 0x46000000 axi_sevenseg_0
 
