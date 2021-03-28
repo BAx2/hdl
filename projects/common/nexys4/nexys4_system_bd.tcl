@@ -27,6 +27,11 @@ create_bd_port -dir O -type clk ref_clk_50Mhz
 create_bd_port -dir O -from 7 -to 0 anode
 create_bd_port -dir O -from 6 -to 0 cathode
 create_bd_port -dir O dp
+
+create_bd_port -dir O -from 1 -to 0 pwm_red
+create_bd_port -dir O -from 1 -to 0 pwm_green
+create_bd_port -dir O -from 1 -to 0 pwm_blue
+
 create_bd_port -dir O PHY_RSTN
 
 create_bd_intf_port -mode Master -vlnv xilinx.com:interface:uart_rtl:1.0 uart
@@ -92,6 +97,7 @@ ad_ip_parameter axi_uart CONFIG.C_BAUDRATE 115200
 ad_ip_instance axi_timer axi_timer
 
 ad_ip_instance axi_sevenseg axi_sevenseg_0
+ad_ip_instance axi_rgbled axi_rgbled_0
 
 ad_ip_instance axi_gpio axi_gpio
 ad_ip_parameter axi_gpio CONFIG.C_INTERRUPT_PRESENT 1
@@ -204,6 +210,9 @@ ad_connect  axi_ethernet/phy_rst_n eth_mii_to_rmii/rst_n
 ad_connect  anode axi_sevenseg_0/anode 
 ad_connect  cathode axi_sevenseg_0/cathode 
 ad_connect  dp axi_sevenseg_0/dp 
+ad_connect  pwm_red axi_rgbled_0/o_red
+ad_connect  pwm_green axi_rgbled_0/o_green
+ad_connect  pwm_blue axi_rgbled_0/o_blue
 ad_connect  iic_main axi_iic_main/iic
 ad_connect  gpio_leds axi_gpio/gpio
 ad_connect  gpio_sw_btns axi_gpio/gpio2
@@ -218,6 +227,7 @@ ad_cpu_interconnect 0x40600000 axi_uart
 ad_cpu_interconnect 0x41600000 axi_iic_main
 ad_cpu_interconnect 0x45000000 axi_sysid_0
 ad_cpu_interconnect 0x46000000 axi_sevenseg_0
+ad_cpu_interconnect 0x46400000 axi_rgbled_0
 
 if 0 {
 

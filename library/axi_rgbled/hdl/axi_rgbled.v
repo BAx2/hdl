@@ -47,6 +47,8 @@ wire  [31:0]  up_wdata_s;
 
 reg   [31:0]  led0 = 'h0;
 reg   [31:0]  led1 = 'h0;
+
+assign up_clk = s_axi_aclk;
 assign pwnm_clk = s_axi_aclk;
 
 // TDB: generate

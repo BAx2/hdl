@@ -14,5 +14,6 @@ LIB_DEPS += axi_sysid
 LIB_DEPS += sysid_rom
 LIB_DEPS += axi_puf
 LIB_DEPS += axi_sevenseg
+LIB_DEPS += axi_rgbled
 
 include ../../scripts/project-xilinx.mk

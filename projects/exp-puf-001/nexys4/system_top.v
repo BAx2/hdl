@@ -105,26 +105,14 @@ module system_top
   wire sys_clk;
   wire sys_rst;
   
-  wire [31:0]emc_rtl_0_addr;
-  wire emc_rtl_0_adv_ldn;
-  wire [1:0]emc_rtl_0_ben;
-  wire [0:0]emc_rtl_0_ce;
-  wire [0:0]emc_rtl_0_ce_n;
-  wire emc_rtl_0_clken;
-  wire emc_rtl_0_cre;
-  wire [15:0]emc_rtl_0_dq_io;
-  wire emc_rtl_0_lbon;
-  wire [0:0]emc_rtl_0_oen;
-  wire [1:0]emc_rtl_0_qwen;
-  wire emc_rtl_0_rnw;
-  wire emc_rtl_0_rpn;
-  wire [0:0]emc_rtl_0_wait;
-  wire emc_rtl_0_wen;
-  
   wire uart_rxd;
   wire uart_txd;
   
   wire ref_clk_50Mhz;
+  
+  wire [4:0]pbtn;
+  
+  assign pbtn = {btnC, btnU, btnL, btnR, btnD};
   
   BUFG CLK_BUFG (.I(ref_clk_50Mhz), .O(PhyClk50Mhz));
   
@@ -144,10 +132,13 @@ module system_top
        .anode(an),
        .cathode(seg),
        .dp(dp),
-       .gpio_leds_tri_o(),
-       .gpio_sw_btns_tri_i(),
-       .iic_main_scl_io(),
-       .iic_main_sda_io(),
+       .gpio_leds_tri_o(led),
+       .gpio_sw_btns_tri_i({sw, pbtn}),
+       .pwm_blue({RGB1_Blue,RGB2_Blue}),
+       .pwm_green({RGB1_Green,RGB2_Green}),
+       .pwm_red({RGB1_Red,RGB2_Red}),
+       .iic_main_scl_io(tmpSCL),
+       .iic_main_sda_io(tmpSDA),
        .MDIO_0_mdc(PhyMdc),
        .MDIO_0_mdio_io(PhyMdio),
        .RMII_PHY_M_0_crs_dv(PhyCrs),
