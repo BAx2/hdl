@@ -17,7 +17,7 @@ clean:
 	$(MAKE) -C sysid_rom clean
 	$(MAKE) -C axi_psram clean
 	$(MAKE) -C axi_sevenseg clean
-
+	$(MAKE) -C axi_rgbled clean
 
 
 clean-all:clean
@@ -29,6 +29,7 @@ lib:
 	$(MAKE) -C sysid_rom
 	$(MAKE) -C axi_psram
 	$(MAKE) -C axi_sevenseg
+	$(MAKE) -C axi_rgbled
 
 ####################################################################################
 ####################################################################################
