@@ -1,7 +1,11 @@
 # Requirements for HW build
 
-* Vivado 2020.2
+* Vivado 2021.1
 * GNU make
+
+# Linux
+
+source /xilinx/Vivado/2021.1/settings64.sh
 
 # Windows 
 
