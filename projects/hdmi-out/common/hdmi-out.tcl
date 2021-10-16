@@ -1,4 +1,8 @@
+# source ./my_scripts.tcl
+
 # video out subsystem
+# create_bd_cell -type hier hdmi_subsystem
+
 ad_ip_instance axi_dynclk dynclk 
 
 ad_ip_instance rgb2dvi hdmi_out [list \
@@ -21,6 +25,11 @@ ad_ip_instance axi_vdma vdma [list \
 ad_ip_instance axi_gpio axi_gpio_hdmi_out [list \
     GPIO_BOARD_INTERFACE {hdmi_out_cec} \
     GPIO2_BOARD_INTERFACE {hdmi_out_hpd_led} \
+]
+
+# leds & buttons
+ad_ip_instance PWM rgb_pwm [list \
+    NUM_PWM {6}
 ]
 
 # clock
@@ -48,13 +57,13 @@ ad_cpu_interconnect 0x41200000 vdma
 ad_cpu_interconnect 0x41210000 vid_timing_ctl
 ad_cpu_interconnect 0x41220000 dynclk
 ad_cpu_interconnect 0x41230000 axi_gpio_hdmi_out
-# ad_cpu_interconnect 0x41240000
-# ad_cpu_interconnect 0x41250000
-# ad_cpu_interconnect 0x41260000
+ad_cpu_interconnect 0x41240000 rgb_pwm
+# ad_cpu_interconnect 0x41250000 
+# ad_cpu_interconnect 0x41260000 
 
 # interconnect (mem/vdma)
-ad_mem_hp1_interconnect sys_cpu_clk sys_ps7/S_AXI_HP1
-ad_mem_hp1_interconnect sys_cpu_clk vdma/M_AXI_MM2S
+ad_mem_hp0_interconnect sys_cpu_clk sys_ps7/S_AXI_HP1
+ad_mem_hp0_interconnect sys_cpu_clk vdma/M_AXI_MM2S
 
 # connections
 ad_connect vid_timing_ctl/vtiming_out axis_to_vid_out/vtiming_in
@@ -63,13 +72,22 @@ ad_connect axis_to_vid_out/vid_io_out hdmi_out/RGB
 
 # create ports
 create_bd_intf_port -mode Master -vlnv digilentinc.com:interface:tmds_rtl:1.0 HDMI
-# create_bd_port -dir O name
+create_bd_port -dir O -from 5 -to 0 rgb
 
 # connect ports
 ad_connect hdmi_out/TMDS HDMI
+ad_connect rgb_pwm/pwm rgb
 make_bd_intf_pins_external  [get_bd_intf_pins axi_gpio_hdmi_out/GPIO]
 make_bd_intf_pins_external  [get_bd_intf_pins axi_gpio_hdmi_out/GPIO2]
 
-#outputs
 
-
+# group cell
+# my_group_bd_cell hdmi_subsystem [list \
+#     axi_hp0* \
+#     vdma \
+#     axis_to_vid_out \
+#     dynclk \
+#     hdmi_out \
+#     axi_gpio_hdmi_out \
+#     vid_timing_ctl \
+# ]

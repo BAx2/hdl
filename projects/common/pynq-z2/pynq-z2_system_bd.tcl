@@ -30,11 +30,12 @@ set sys_cpu_resetn        [get_bd_nets sys_cpu_resetn]
 
 ad_ip_instance axi_sysid axi_sysid_0
 ad_ip_instance sysid_rom rom_sys_0
+ad_ip_instance xlconstant GND_32 [list CONST_VAL {0} CONST_WIDTH {32}]
 
-ad_connect  axi_sysid_0/rom_addr   	rom_sys_0/rom_addr
-ad_connect  axi_sysid_0/sys_rom_data   	rom_sys_0/rom_data
+ad_connect  axi_sysid_0/rom_addr        rom_sys_0/rom_addr
+ad_connect  axi_sysid_0/sys_rom_data    rom_sys_0/rom_data
+ad_connect  axi_sysid_0/pr_rom_data     GND_32/dout
 ad_connect  sys_cpu_clk                 rom_sys_0/clk
-
 # interconnects and address mapping
 
 ad_cpu_interconnect 0x43c00000 axi_sysid_0

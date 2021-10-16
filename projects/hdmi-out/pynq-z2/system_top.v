@@ -29,7 +29,14 @@ module system_top(
     HDMI_clk_n,
     HDMI_clk_p,
     HDMI_data_n,
-    HDMI_data_p
+    HDMI_data_p,
+
+    led4_b,
+    led4_g,
+    led4_r,
+    led5_b,
+    led5_g,
+    led5_r
 );
     inout [14:0]DDR_addr;
     inout [2:0]DDR_ba;
@@ -59,6 +66,12 @@ module system_top(
     output HDMI_clk_p;
     output [2:0]HDMI_data_n;
     output [2:0]HDMI_data_p;
+    output led4_b;
+    output led4_g;
+    output led4_r;
+    output led5_b;
+    output led5_g;
+    output led5_r;
 
     wire [14:0]DDR_addr;
     wire [2:0]DDR_ba;
@@ -88,7 +101,16 @@ module system_top(
     wire HDMI_clk_p;
     wire [2:0]HDMI_data_n;
     wire [2:0]HDMI_data_p;
+    wire [5:0]rgb;
 
+    assign 
+        led4_b = rgb[5],
+        led4_g = rgb[4],
+        led4_r = rgb[3],
+        led5_b = rgb[2],
+        led5_g = rgb[1],
+        led5_r = rgb[0];
+    
     system_wrapper i_system_wrapper (
         .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
@@ -116,7 +138,8 @@ module system_top(
         .HDMI_clk_n(HDMI_clk_n),
         .HDMI_clk_p(HDMI_clk_p),
         .HDMI_data_n(HDMI_data_n),
-        .HDMI_data_p(HDMI_data_p)
+        .HDMI_data_p(HDMI_data_p),
+        .rgb(rgb)
     );
 
 endmodule
