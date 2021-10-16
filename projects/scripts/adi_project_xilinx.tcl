@@ -1,7 +1,7 @@
 
 ## Define the supported tool version
 if {![info exists REQUIRED_VIVADO_VERSION]} {
-  set REQUIRED_VIVADO_VERSION "2020.2"
+  set REQUIRED_VIVADO_VERSION "2021.1"
 }
 
 ## Define the ADI_IGNORE_VERSION_CHECK environment variable to skip version check
@@ -58,6 +58,10 @@ proc adi_project {project_name {mode 0} {parameter_list {}} } {
   if [regexp "_nexys4$" $project_name] {
     set device "xc7a100tcsg324-1"
     set board [lindex [lsearch -all -inline [get_board_parts] *nexys4:part0:1.1*] end]
+  }
+  if [regexp "_pynq-z2$" $project_name] {
+    set device "xc7z020clg400-1"
+    set board [lindex [lsearch -all -inline [get_board_parts] *pynq-z2:part0:1.0] end]
   }
   if [regexp "_ac701$" $project_name] {
     set device "xc7a200tfbg676-2"
