@@ -57,6 +57,8 @@ xgui
 *.srcs
 *.sdk
 *.gen
+*.output_files
+*.debug
 .Xil
 *_INFO.txt
 *_dump.txt
