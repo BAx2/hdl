@@ -65,6 +65,9 @@ ad_cpu_interconnect 0x41240000 rgb_pwm
 ad_mem_hp0_interconnect sys_cpu_clk sys_ps7/S_AXI_HP1
 ad_mem_hp0_interconnect sys_cpu_clk vdma/M_AXI_MM2S
 
+# interrupts
+ad_cpu_interrupt ps-0 mb-0 vdma/mm2s_introut
+
 # connections
 ad_connect vid_timing_ctl/vtiming_out axis_to_vid_out/vtiming_in
 ad_connect vdma/M_AXIS_MM2S axis_to_vid_out/video_in
