@@ -12,6 +12,7 @@ M_DEPS += ../../scripts/adi_pd.tcl
 
 LIB_DEPS += axi_sysid
 LIB_DEPS += sysid_rom
+LIB_DEPS += wave_former
 LIB_DEPS += axi_puf
 
 include ../../scripts/project-xilinx.mk

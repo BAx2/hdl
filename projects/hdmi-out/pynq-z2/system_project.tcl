@@ -14,8 +14,8 @@ adi_project_files hdmi-out [list \
   "placer_constr.xdc"]
 
 # adi_project_run hdmi-out_pynq-z2
-adi_project_run $project_name
 
+adi_project_run $project_name
 
 exec mkdir -p $output_dir
 exec cp $project_name.sdk/system_top.xsa \

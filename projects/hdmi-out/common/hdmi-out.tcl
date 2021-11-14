@@ -26,6 +26,7 @@ ad_ip_instance axi_gpio axi_gpio_hdmi_out [list \
     GPIO_BOARD_INTERFACE {hdmi_out_cec} \
     GPIO2_BOARD_INTERFACE {hdmi_out_hpd_led} \
 ]
+ad_ip_instance wave_former wave_former_0
 
 # leds & buttons
 ad_ip_instance PWM rgb_pwm [list \
@@ -43,22 +44,23 @@ set pixel_clk_5x [get_bd_nets pixel_clk_5x]
 # ad_connect ref_clk sys_ps7/FCLK_CLK1
 # set ref_clk [get_bd_nets ref_clk]
 
-ad_connect pixel_clk vid_timing_ctl/clk
-ad_connect pixel_clk vdma/m_axis_mm2s_aclk
-ad_connect pixel_clk axis_to_vid_out/aclk
-ad_connect pixel_clk hdmi_out/PixelClk
+ad_connect pixel_clk        vid_timing_ctl/clk
+ad_connect pixel_clk        vdma/m_axis_mm2s_aclk
+ad_connect pixel_clk        axis_to_vid_out/aclk
+ad_connect pixel_clk        hdmi_out/PixelClk
+ad_connect pixel_clk        wave_former_0/s_axis_video_aclk
 
-ad_connect pixel_clk_5x hdmi_out/SerialClk
+ad_connect pixel_clk_5x     hdmi_out/SerialClk
 
-ad_connect sys_cpu_clk dynclk/REF_CLK_I
+ad_connect sys_cpu_clk      dynclk/REF_CLK_I
 
 # interconnect (cpu)
-ad_cpu_interconnect 0x41200000 vdma
-ad_cpu_interconnect 0x41210000 vid_timing_ctl
-ad_cpu_interconnect 0x41220000 dynclk
-ad_cpu_interconnect 0x41230000 axi_gpio_hdmi_out
-ad_cpu_interconnect 0x41240000 rgb_pwm
-# ad_cpu_interconnect 0x41250000 
+ad_cpu_interconnect 0x41200000      vdma
+ad_cpu_interconnect 0x41210000      vid_timing_ctl
+ad_cpu_interconnect 0x41220000      dynclk
+ad_cpu_interconnect 0x41230000      axi_gpio_hdmi_out
+ad_cpu_interconnect 0x41240000      rgb_pwm
+ad_cpu_interconnect 0x41250000      wave_former_0
 # ad_cpu_interconnect 0x41260000 
 
 # interconnect (mem/vdma)
@@ -69,9 +71,11 @@ ad_mem_hp0_interconnect sys_cpu_clk vdma/M_AXI_MM2S
 ad_cpu_interrupt ps-0 mb-0 vdma/mm2s_introut
 
 # connections
-ad_connect vid_timing_ctl/vtiming_out axis_to_vid_out/vtiming_in
-ad_connect vdma/M_AXIS_MM2S axis_to_vid_out/video_in
-ad_connect axis_to_vid_out/vid_io_out hdmi_out/RGB
+ad_connect vid_timing_ctl/vtiming_out           axis_to_vid_out/vtiming_in
+ad_connect vdma/M_AXIS_MM2S                     wave_former_0/s_axis_video
+ad_connect wave_former_0/m_axis_video           axis_to_vid_out/video_in
+ad_connect wave_former_0/s_axis_video_areset    GND
+ad_connect axis_to_vid_out/vid_io_out           hdmi_out/RGB
 
 # create ports
 create_bd_intf_port -mode Master -vlnv digilentinc.com:interface:tmds_rtl:1.0 HDMI
