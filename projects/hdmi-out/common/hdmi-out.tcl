@@ -21,6 +21,7 @@ ad_ip_instance axi_vdma vdma [list \
     c_mm2s_genlock_mode {0} \
     c_s2mm_genlock_mode {0} \
     c_include_s2mm {0} \
+    c_include_mm2s_dre {1} \
 ]
 ad_ip_instance axi_gpio axi_gpio_hdmi_out [list \
     GPIO_BOARD_INTERFACE {hdmi_out_cec} \
