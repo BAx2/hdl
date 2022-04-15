@@ -30,27 +30,27 @@ entity axi_dynclk is
 
 
 		-- Ports of Axi Slave Bus Interface S00_AXI
-		s00_axi_aclk	: in std_logic;
-		s00_axi_aresetn	: in std_logic;
-		s00_axi_awaddr	: in std_logic_vector(C_S00_AXI_ADDR_WIDTH-1 downto 0);
-		s00_axi_awprot	: in std_logic_vector(2 downto 0);
-		s00_axi_awvalid	: in std_logic;
-		s00_axi_awready	: out std_logic;
-		s00_axi_wdata	: in std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
-		s00_axi_wstrb	: in std_logic_vector((C_S00_AXI_DATA_WIDTH/8)-1 downto 0);
-		s00_axi_wvalid	: in std_logic;
-		s00_axi_wready	: out std_logic;
-		s00_axi_bresp	: out std_logic_vector(1 downto 0);
-		s00_axi_bvalid	: out std_logic;
-		s00_axi_bready	: in std_logic;
-		s00_axi_araddr	: in std_logic_vector(C_S00_AXI_ADDR_WIDTH-1 downto 0);
-		s00_axi_arprot	: in std_logic_vector(2 downto 0);
-		s00_axi_arvalid	: in std_logic;
-		s00_axi_arready	: out std_logic;
-		s00_axi_rdata	: out std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
-		s00_axi_rresp	: out std_logic_vector(1 downto 0);
-		s00_axi_rvalid	: out std_logic;
-		s00_axi_rready	: in std_logic
+		s_axi_aclk	: in std_logic;
+		s_axi_aresetn	: in std_logic;
+		s_axi_awaddr	: in std_logic_vector(C_S00_AXI_ADDR_WIDTH-1 downto 0);
+		s_axi_awprot	: in std_logic_vector(2 downto 0);
+		s_axi_awvalid	: in std_logic;
+		s_axi_awready	: out std_logic;
+		s_axi_wdata	: in std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+		s_axi_wstrb	: in std_logic_vector((C_S00_AXI_DATA_WIDTH/8)-1 downto 0);
+		s_axi_wvalid	: in std_logic;
+		s_axi_wready	: out std_logic;
+		s_axi_bresp	: out std_logic_vector(1 downto 0);
+		s_axi_bvalid	: out std_logic;
+		s_axi_bready	: in std_logic;
+		s_axi_araddr	: in std_logic_vector(C_S00_AXI_ADDR_WIDTH-1 downto 0);
+		s_axi_arprot	: in std_logic_vector(2 downto 0);
+		s_axi_arvalid	: in std_logic;
+		s_axi_arready	: out std_logic;
+		s_axi_rdata	: out std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+		s_axi_rresp	: out std_logic_vector(1 downto 0);
+		s_axi_rvalid	: out std_logic;
+		s_axi_rready	: in std_logic
 	);
 end axi_dynclk;
 
@@ -159,27 +159,27 @@ axi_dynclk_S00_AXI_inst : axi_dynclk_S00_AXI
         CLK_LOCK_REG => CLK_LOCK_REG,
         CLK_FLTR_REG => CLK_FLTR_REG,
 		
-		S_AXI_ACLK	=> s00_axi_aclk,
-		S_AXI_ARESETN	=> s00_axi_aresetn,
-		S_AXI_AWADDR	=> s00_axi_awaddr,
-		S_AXI_AWPROT	=> s00_axi_awprot,
-		S_AXI_AWVALID	=> s00_axi_awvalid,
-		S_AXI_AWREADY	=> s00_axi_awready,
-		S_AXI_WDATA	=> s00_axi_wdata,
-		S_AXI_WSTRB	=> s00_axi_wstrb,
-		S_AXI_WVALID	=> s00_axi_wvalid,
-		S_AXI_WREADY	=> s00_axi_wready,
-		S_AXI_BRESP	=> s00_axi_bresp,
-		S_AXI_BVALID	=> s00_axi_bvalid,
-		S_AXI_BREADY	=> s00_axi_bready,
-		S_AXI_ARADDR	=> s00_axi_araddr,
-		S_AXI_ARPROT	=> s00_axi_arprot,
-		S_AXI_ARVALID	=> s00_axi_arvalid,
-		S_AXI_ARREADY	=> s00_axi_arready,
-		S_AXI_RDATA	=> s00_axi_rdata,
-		S_AXI_RRESP	=> s00_axi_rresp,
-		S_AXI_RVALID	=> s00_axi_rvalid,
-		S_AXI_RREADY	=> s00_axi_rready
+		S_AXI_ACLK	    => s_axi_aclk,
+		S_AXI_ARESETN	=> s_axi_aresetn,
+		S_AXI_AWADDR	=> s_axi_awaddr,
+		S_AXI_AWPROT	=> s_axi_awprot,
+		S_AXI_AWVALID	=> s_axi_awvalid,
+		S_AXI_AWREADY	=> s_axi_awready,
+		S_AXI_WDATA	    => s_axi_wdata,
+		S_AXI_WSTRB	    => s_axi_wstrb,
+		S_AXI_WVALID	=> s_axi_wvalid,
+		S_AXI_WREADY	=> s_axi_wready,
+		S_AXI_BRESP	    => s_axi_bresp,
+		S_AXI_BVALID	=> s_axi_bvalid,
+		S_AXI_BREADY	=> s_axi_bready,
+		S_AXI_ARADDR	=> s_axi_araddr,
+		S_AXI_ARPROT	=> s_axi_arprot,
+		S_AXI_ARVALID	=> s_axi_arvalid,
+		S_AXI_ARREADY	=> s_axi_arready,
+		S_AXI_RDATA	    => s_axi_rdata,
+		S_AXI_RRESP	    => s_axi_rresp,
+		S_AXI_RVALID	=> s_axi_rvalid,
+		S_AXI_RREADY	=> s_axi_rready
 	);
 
 GenerateBUFMR: if ADD_BUFMR generate
@@ -221,8 +221,8 @@ end generate DontGenerateBUFMR;
   )  
   PORT MAP(
 		SEN => sen_reg,
-		SCLK => s00_axi_aclk,
-		RST => not(s00_axi_aresetn),
+		SCLK => s_axi_aclk,
+		RST => not(s_axi_aresetn),
 		SRDY => srdy,
 		S1_CLKOUT0 => CLK_FRAC_REG(3 downto 0) & CLK_O_REG,
 		S1_CLKFBOUT => CLK_FRAC_REG(19 downto 16) & CLK_FB_REG,
@@ -242,10 +242,10 @@ end generate DontGenerateBUFMR;
 	PXL_CLK_O <= pxl_clk;
 	LOCKED_O <= locked;
    
-   	process (s00_axi_aclk)
+   	process (s_axi_aclk)
 	begin
-    	if (rising_edge(s00_axi_aclk)) then
-    		if (s00_axi_aresetn = '0') then
+    	if (rising_edge(s_axi_aclk)) then
+    		if (s_axi_aresetn = '0') then
     			clk_state <= RESET;
     		else	
     			case clk_state is 
@@ -279,10 +279,10 @@ end generate DontGenerateBUFMR;
 	STAT_REG(0) <= '1' when clk_state = ENABLED else
 					'0';
 					
-process (s00_axi_aclk)
+process (s_axi_aclk)
 begin
-	if (rising_edge(s00_axi_aclk)) then
-		if (s00_axi_aresetn = '0') then
+	if (rising_edge(s_axi_aclk)) then
+		if (s_axi_aresetn = '0') then
 			sen_reg <= '0';
 		else
 			if (clk_state = WAIT_EN and CTRL_REG(0) = '1') then
