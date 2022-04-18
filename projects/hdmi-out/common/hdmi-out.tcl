@@ -4,10 +4,11 @@
 # create_bd_cell -type hier hdmi_subsystem
 
 ad_ip_instance axi_dynclk dynclk 
+ad_ip_instance rgb2dvi hdmi_out 
 
-ad_ip_instance rgb2dvi hdmi_out [list \
-    kGenerateSerialClk {false} \
-]
+#ad_ip_instance rgb2dvi hdmi_out [list \
+#    kGenerateSerialClk {false} \
+#]
 
 ad_ip_instance v_axi4s_vid_out axis_to_vid_out [list \
     C_VTG_MASTER_SLAVE {1} \
