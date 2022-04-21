@@ -4,11 +4,11 @@
 # create_bd_cell -type hier hdmi_subsystem
 
 ad_ip_instance axi_dynclk dynclk 
-ad_ip_instance rgb2dvi hdmi_out 
+# ad_ip_instance rgb2dvi hdmi_out 
 
-#ad_ip_instance rgb2dvi hdmi_out [list \
-#    kGenerateSerialClk {false} \
-#]
+ad_ip_instance rgb2dvi hdmi_out [list \
+   kGenerateSerialClk {false} \
+]
 
 ad_ip_instance v_axi4s_vid_out axis_to_vid_out [list \
     C_VTG_MASTER_SLAVE {1} \
@@ -80,7 +80,7 @@ ad_connect wave_former_0/s_axis_video_areset    GND
 ad_connect axis_to_vid_out/vid_io_out           hdmi_out/RGB
 
 # create ports
-create_bd_intf_port -mode Master -vlnv digilentinc.com:interface:tmds_rtl:1.0 HDMI
+create_bd_intf_port -mode master -vlnv analog.com:interface:tmds_rtl:1.0 HDMI
 create_bd_port -dir O -from 5 -to 0 rgb
 
 # connect ports

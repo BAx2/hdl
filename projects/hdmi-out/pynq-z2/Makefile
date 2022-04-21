@@ -15,5 +15,7 @@ LIB_DEPS += sysid_rom
 LIB_DEPS += wave_former
 LIB_DEPS += axi_puf
 LIB_DEPS += rgb2dvi
+LIB_DEPS += axi_dynclk
+LIB_DEPS += PWM
 
 include ../../scripts/project-xilinx.mk
