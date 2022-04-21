@@ -15,4 +15,9 @@ GENERIC_DEPS += src/TMDS_Encoder.vhd
 
 XILINX_DEPS += rgb2dvi_ip.tcl
 
+XILINX_DEPS += ../interfaces/tmds.xml
+XILINX_DEPS += ../interfaces/tmds_rtl.xml
+
+XILINX_INTERFACE_DEPS += interfaces
+
 include ../scripts/library.mk
