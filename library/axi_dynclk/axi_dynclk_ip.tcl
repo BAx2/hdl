@@ -3,11 +3,27 @@ source $ad_hdl_dir/library/scripts/adi_ip_xilinx.tcl
 
 adi_ip_create axi_dynclk
 adi_ip_files  axi_dynclk [list \
-  "src/axi_dynclk_S00_AXI.vhd" \
-  "src/axi_dynclk.vhd" \
-  "src/mmcme2_drp.v"]
+    "src/axi_dynclk_S00_AXI.vhd" \
+    "src/axi_dynclk.vhd" \
+    "src/mmcme2_drp.v"\
+]
 
 adi_ip_properties axi_dynclk
+
+
+adi_add_bus "PXL_CLK_O" "master" \
+    "xilinx.com:signal:clock_rtl:1.0" \
+    "xilinx.com:signal:clock:1.0" \
+    {
+        {"PXL_CLK_O" "CLK"} \
+    }
+
+adi_add_bus "PXL_CLK_5X_O" "master" \
+    "xilinx.com:signal:clock_rtl:1.0" \
+    "xilinx.com:signal:clock:1.0" \
+    {
+        {"PXL_CLK_5X_O" "CLK"} \
+    }
 
 set cc [ipx::current_core]
 set page0 [ipgui::get_pagespec -name "Page 0" -component $cc]
