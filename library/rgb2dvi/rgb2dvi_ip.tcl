@@ -14,7 +14,10 @@ adi_ip_files  rgb2dvi [list \
     "src/rgb2dvi.xdc" \
     "src/SyncAsyncReset.vhd" \
     "src/SyncAsync.vhd" \
-    "src/TMDS_Encoder.vhd"\
+    "src/TMDS_Encoder.vhd" \
+    "src/rgb2dvi.xdc" \
+    "src/rgb2dvi_ooc.xdc" \
+    "src/rgb2dvi_clocks.xdc" \
 ]
 
 adi_ip_properties_lite rgb2dvi

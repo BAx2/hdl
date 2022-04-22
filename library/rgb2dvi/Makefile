@@ -13,10 +13,14 @@ GENERIC_DEPS += src/SyncAsyncReset.vhd
 GENERIC_DEPS += src/SyncAsync.vhd
 GENERIC_DEPS += src/TMDS_Encoder.vhd
 
-XILINX_DEPS += rgb2dvi_ip.tcl
-
 XILINX_DEPS += ../interfaces/tmds.xml
 XILINX_DEPS += ../interfaces/tmds_rtl.xml
+
+XILINX_DEPS += src/rgb2dvi.xdc
+XILINX_DEPS += src/rgb2dvi_ooc.xdc
+XILINX_DEPS += src/rgb2dvi_clocks.xdc
+
+XILINX_DEPS += rgb2dvi_ip.tcl
 
 XILINX_INTERFACE_DEPS += interfaces
 
