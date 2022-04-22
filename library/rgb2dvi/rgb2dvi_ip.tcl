@@ -22,6 +22,13 @@ adi_ip_files  rgb2dvi [list \
 
 adi_ip_properties_lite rgb2dvi
 
+adi_add_bus "SerialClk" "slave" \
+    "xilinx.com:signal:clock_rtl:1.0" \
+    "xilinx.com:signal:clock:1.0" \
+    {
+        {"SerialClk" "CLK"} \
+    }
+
 adi_add_bus "RGB" "slave" \
     "xilinx.com:interface:vid_io_rtl:1.0" \
     "xilinx.com:interface:vid_io:1.0" \
@@ -55,6 +62,9 @@ set_property -dict [list \
     "show_label"    "true" \
 ] $param
 
+set_property driver_value 0 [ipx::get_ports SerialClk -of_objects [ipx::current_core]]
+set_property enablement_dependency {$kGenerateSerialClk = 0} [ipx::get_ports SerialClk -of_objects [ipx::current_core]]
+
 # Reset
 set param [ipgui::add_param -name {kRstActiveHigh} -component $cc -parent $page0]
 set_property -dict [list \
@@ -62,6 +72,11 @@ set_property -dict [list \
     "widget"        "checkBox" \
     "show_label"    "true" \
 ] $param
+
+set_property driver_value 0 [ipx::get_ports aRst -of_objects [ipx::current_core]]
+set_property enablement_dependency {$kRstActiveHigh = 1} [ipx::get_ports aRst -of_objects [ipx::current_core]]
+set_property driver_value 1 [ipx::get_ports aRst_n -of_objects [ipx::current_core]]
+set_property enablement_dependency {$kRstActiveHigh = 0} [ipx::get_ports aRst_n -of_objects [ipx::current_core]]
 
 # MMCM/PLL
 set param [ipgui::get_guiparamspec -name "kClkPrimitive" -component $cc]

@@ -10,6 +10,12 @@ adi_ip_files  axi_dynclk [list \
 
 adi_ip_properties axi_dynclk
 
+adi_add_bus "REF_CLK_I" "slave" \
+    "xilinx.com:signal:clock_rtl:1.0" \
+    "xilinx.com:signal:clock:1.0" \
+    {
+        {"REF_CLK_I" "CLK"} \
+    }
 
 adi_add_bus "PXL_CLK_O" "master" \
     "xilinx.com:signal:clock_rtl:1.0" \
