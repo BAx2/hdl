@@ -8,10 +8,7 @@ adi_ip_files  rgb2dvi [list \
     "src/ClockGen.vhd" \
     "src/DVI_Constants.vhd" \
     "src/OutputSERDES.vhd" \
-    "src/rgb2dvi_clocks.xdc" \
-    "src/rgb2dvi_ooc.xdc" \
     "src/rgb2dvi.vhd" \
-    "src/rgb2dvi.xdc" \
     "src/SyncAsyncReset.vhd" \
     "src/SyncAsync.vhd" \
     "src/TMDS_Encoder.vhd" \
@@ -52,6 +49,16 @@ adi_add_bus "TMDS" "master" \
     }
 
 set cc [ipx::current_core]
+
+# Constraints
+set_property used_in {implementation synthesis} \
+    [ipx::get_files src/rgb2dvi_clocks.xdc  -of_objects [ipx::get_file_groups xilinx_anylanguagesynthesis -of_objects $cc]]
+set_property used_in {implementation synthesis} \
+    [ipx::get_files src/rgb2dvi.xdc         -of_objects [ipx::get_file_groups xilinx_anylanguagesynthesis -of_objects $cc]]
+set_property used_in {implementation out_of_context synthesis} \
+    [ipx::get_files src/rgb2dvi_ooc.xdc     -of_objects [ipx::get_file_groups xilinx_anylanguagesynthesis -of_objects $cc]]
+
+# GUI
 set page0 [ipgui::get_pagespec -name "Page 0" -component $cc]
 
 # Generate SerialClk internally
