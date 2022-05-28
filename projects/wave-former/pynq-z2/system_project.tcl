@@ -4,7 +4,7 @@ source $ad_hdl_dir/projects/scripts/adi_project_xilinx.tcl
 source $ad_hdl_dir/projects/scripts/adi_board.tcl
 
 set board       pynq-z2
-set project     hdmi-out
+set project     wave-former
 
 set project_name ${project}_${board}
 set output_dir $project_name.output_files
