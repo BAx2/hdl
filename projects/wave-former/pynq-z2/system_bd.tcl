@@ -1,7 +1,7 @@
 source $ad_hdl_dir/projects/common/pynq-z2/pynq-z2_system_bd.tcl
 source $ad_hdl_dir/projects/common/pynq-z2/pynq-z2_system_ps7.tcl
 source ../common/my_scripts.tcl
-source ../common/hdmi-out.tcl
+source ../common/wave-former.tcl
 source $ad_hdl_dir/projects/scripts/adi_pd.tcl
 
 #system ID

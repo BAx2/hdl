@@ -3,9 +3,9 @@
 ## Auto-generated, do not modify!
 ####################################################################################
 
-PROJECT_NAME := hdmi-out_pynq-z2
+PROJECT_NAME := wave-former_pynq-z2
 
-M_DEPS += ../common/hdmi-out.tcl
+M_DEPS += ../common/wave-former.tcl
 M_DEPS += ../../common/pynq-z2/pynq-z2_system_constr.xdc
 M_DEPS += ../../common/pynq-z2/pynq-z2_system_bd.tcl
 M_DEPS += ../../scripts/adi_pd.tcl
