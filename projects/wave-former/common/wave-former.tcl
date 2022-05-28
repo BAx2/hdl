@@ -3,7 +3,7 @@
 # video out subsystem
 # create_bd_cell -type hier hdmi_subsystem
 
-ad_ip_instance axi_dynclk dynclk 
+ad_ip_instance axi_dynclk axi_dynclk 
 # ad_ip_instance rgb2dvi hdmi_out 
 
 ad_ip_instance rgb2dvi hdmi_out [list \
@@ -13,7 +13,7 @@ ad_ip_instance rgb2dvi hdmi_out [list \
 ad_ip_instance v_axi4s_vid_out axis_to_vid_out [list \
     C_VTG_MASTER_SLAVE {1} \
 ]
-ad_ip_instance v_tc vid_timing_ctl [list \
+ad_ip_instance v_tc vtc_out [list \
     enable_detection {false} \
 ]
 ad_ip_instance axi_vdma vdma [list \
@@ -36,17 +36,17 @@ ad_ip_instance PWM rgb_pwm [list \
 ]
 
 # clock
-ad_connect pixel_clk dynclk/PXL_CLK_O
+ad_connect pixel_clk axi_dynclk/PXL_CLK_O
 set pixel_clk [get_bd_nets pixel_clk]
 
-ad_connect pixel_clk_5x dynclk/PXL_CLK_5X_O
+ad_connect pixel_clk_5x axi_dynclk/PXL_CLK_5X_O
 set pixel_clk_5x [get_bd_nets pixel_clk_5x]
 
 # ref_clk must be from 60 MHz to 120 MHz
 # ad_connect ref_clk sys_ps7/FCLK_CLK1
 # set ref_clk [get_bd_nets ref_clk]
 
-ad_connect pixel_clk        vid_timing_ctl/clk
+ad_connect pixel_clk        vtc_out/clk
 ad_connect pixel_clk        vdma/m_axis_mm2s_aclk
 ad_connect pixel_clk        axis_to_vid_out/aclk
 ad_connect pixel_clk        hdmi_out/PixelClk
@@ -54,12 +54,12 @@ ad_connect pixel_clk        wave_former_0/s_axis_video_aclk
 
 ad_connect pixel_clk_5x     hdmi_out/SerialClk
 
-ad_connect sys_cpu_clk      dynclk/REF_CLK_I
+ad_connect sys_cpu_clk      axi_dynclk/REF_CLK_I
 
 # interconnect (cpu)
 ad_cpu_interconnect 0x41200000      vdma
-ad_cpu_interconnect 0x41210000      vid_timing_ctl
-ad_cpu_interconnect 0x41220000      dynclk
+ad_cpu_interconnect 0x41210000      vtc_out
+ad_cpu_interconnect 0x41220000      axi_dynclk
 ad_cpu_interconnect 0x41230000      axi_gpio_hdmi_out
 ad_cpu_interconnect 0x41240000      rgb_pwm
 ad_cpu_interconnect 0x41250000      wave_former_0
@@ -73,7 +73,7 @@ ad_mem_hp0_interconnect sys_cpu_clk vdma/M_AXI_MM2S
 ad_cpu_interrupt ps-0 mb-0 vdma/mm2s_introut
 
 # connections
-ad_connect vid_timing_ctl/vtiming_out           axis_to_vid_out/vtiming_in
+ad_connect vtc_out/vtiming_out           axis_to_vid_out/vtiming_in
 ad_connect vdma/M_AXIS_MM2S                     wave_former_0/s_axis_video
 ad_connect wave_former_0/m_axis_video           axis_to_vid_out/video_in
 ad_connect wave_former_0/s_axis_video_areset    GND
@@ -95,8 +95,8 @@ make_bd_intf_pins_external  [get_bd_intf_pins axi_gpio_hdmi_out/GPIO2]
 #     axi_hp0* \
 #     vdma \
 #     axis_to_vid_out \
-#     dynclk \
+#     axi_dynclk \
 #     hdmi_out \
 #     axi_gpio_hdmi_out \
-#     vid_timing_ctl \
+#     vtc_out \
 # ]
