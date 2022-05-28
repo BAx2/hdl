@@ -13,7 +13,6 @@ M_DEPS += ../../scripts/adi_pd.tcl
 LIB_DEPS += axi_sysid
 LIB_DEPS += sysid_rom
 LIB_DEPS += wave_former
-LIB_DEPS += axi_puf
 LIB_DEPS += rgb2dvi
 LIB_DEPS += axi_dynclk
 LIB_DEPS += PWM
