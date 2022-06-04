@@ -22,8 +22,7 @@ adi_project_run $project_name
 exec mkdir -p $output_dir
 exec cp $project_name.sdk/system_top.xsa \
         $output_dir/$project_name.xsa
-# exec cp $project_name.gen/sources_1/bd/system/hw_handoff/system.hwh
-exec cp $project_name.srcs/sources_1/bd/system/hw_handoff/system.hwh \
+exec cp $project_name.gen/sources_1/bd/system/hw_handoff/system.hwh \
         $output_dir/$project_name.hwh
 exec cp $project_name.runs/impl_1/system_top.bit \
         $output_dir/$project_name.bit

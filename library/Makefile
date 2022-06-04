@@ -19,6 +19,7 @@ clean:
 	$(MAKE) -C axi_sevenseg clean
 	$(MAKE) -C axi_rgbled clean
 	$(MAKE) -C wave_former clean
+	$(MAKE) -C Dct2 clean
 
 
 clean-all:clean
@@ -32,6 +33,7 @@ lib:
 	$(MAKE) -C axi_sevenseg
 	$(MAKE) -C axi_rgbled
 	$(MAKE) -C wave_former
+	$(MAKE) -C Dct2
 
 ####################################################################################
 ####################################################################################
